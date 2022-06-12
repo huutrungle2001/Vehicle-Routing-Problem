@@ -16,6 +16,10 @@ class Solver {
     Instance *instance;
     Solution *bestSol;
     Solution *currentSol;
+
+    std::chrono::_V2::system_clock::time_point now2 = chrono::high_resolution_clock::now();
+    std::chrono::_V2::system_clock::time_point start2 = chrono::high_resolution_clock::now();
+
     Solver(Instance *instance, int timeLimit, int iter);
     void solution_construction();
     void solve(int iter);

@@ -2,6 +2,7 @@
 #include<bits/stdc++.h>
 
 using namespace std;
+using namespace std::chrono;
 
 Solver::Solver(Instance *instance, int timeLimit, int iter) : instance(instance), timeLimit(timeLimit), iter(iter){
     cooling_rate = 0.996;
@@ -22,9 +23,11 @@ void Solver::solve(int iter){
 
     for (int i = 0; i < iter; ++i){
         auto now = chrono::high_resolution_clock::now();
+        start2 = startTime;
         double runtime = chrono::duration_cast<chrono::milliseconds>(now - startTime).count();
         runtime = runtime / 1000;
-        if (runtime > timeLimit) break;
+        if (runtime > timeLimit) 
+            break;
 
         Solution *s = new Solution();
         *s = *currentSol;
@@ -80,6 +83,17 @@ here:
                 if (k == 0) continue;
                 swap(j, k);
                 TSP tsp_max, tsp_i;
+
+                auto now = chrono::high_resolution_clock::now();
+                double runtime = chrono::duration_cast<chrono::milliseconds>(now - start2).count();
+                runtime = runtime / 1000;
+                cout << "\n=============== Runtime: " << runtime << "s - TimeLimit: " << timeLimit << "s ===============\n";
+
+                if (runtime > timeLimit) 
+                    break;
+
+
+
                 cout << "\x1B[2K\rStep:" << step++ << "\r\t\t\tSwap "
                      << "\r\t\t\t\t\t\t";
                 if (step % 4 == 0)
